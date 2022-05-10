@@ -25,17 +25,18 @@ class FFMPEGFrames:
             
             vids = glob.glob(os.path.join(inp,dir,"*"))
             
-            for vid in vids:
-                files = glob.glob(os.path.join(vid, '*.png'))
+            # for vid in vids:
+            #     files = glob.glob(os.path.join(vid, '*.png'))
                 
-                for file in files:
-                    output = file.split('/')[-2]
-                    
-                    if not os.path.exists(self.output + dir):
-                        os.makedirs(self.output + dir)
-                    
-                    query = "ffmpeg -i " + inp + dir + '/' + output + "/%06d.png " +  self.output + '/' + dir + '/' + output + ".mp4"
-                    response = subprocess.Popen(query, shell=True, stdout=subprocess.PIPE).stdout.read()
-                    s = str(response).encode('utf-8')
+            for file in vids:
+                
+                output = file.split('/')[-1]
+                
+                if not os.path.exists(self.output + dir):
+                    os.makedirs(self.output + dir)
+                
+                query = "ffmpeg -i " + inp + dir + '/' + output + "/%06d.png " +  self.output + dir + '/' + output + ".mp4"
+                response = subprocess.Popen(query, shell=True, stdout=subprocess.PIPE).stdout.read()
+                s = str(response).encode('utf-8')
                     
                   
