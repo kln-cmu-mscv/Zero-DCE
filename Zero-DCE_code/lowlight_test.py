@@ -37,26 +37,28 @@ def lowlight(image_path):
 
 	end_time = (time.time() - start)
 	print(end_time)
-	image_path = image_path.replace('test_data','result')
+	image_path = image_path.replace('images_frames','result')
 	result_path = image_path
 	if not os.path.exists(image_path.replace('/'+image_path.split("/")[-1],'')):
 		os.makedirs(image_path.replace('/'+image_path.split("/")[-1],''))
-
+	
 	torchvision.utils.save_image(enhanced_image, result_path)
 
 if __name__ == '__main__':
 # test_images
 	with torch.no_grad():
-		filePath = 'data/test_data/'
+		filePath = '/project_data/ramanan/mganesin/projects/vlr/Zero-DCE-master/Generate_frames/data/images_frames'
 	
 		file_list = os.listdir(filePath)
 
-		for file_name in file_list:
-			test_list = glob.glob(filePath+file_name+"/*") 
-			for image in test_list:
-				# image = image
-				print(image)
-				lowlight(image)
+		for action in file_list:
+			action = glob.glob(filePath +"/" + action +"/*")
+			for file_name in action:
+				test_list = glob.glob(file_name+"/*") 
+				for image in test_list:
+					# image = image
+					print(image)
+					lowlight(image)
 
 		
 
